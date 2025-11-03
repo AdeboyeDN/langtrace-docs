@@ -1,0 +1,79 @@
+---
+title: Langtrace on Northflank
+sidebarTitle: Northflank
+description: Running Langtrace Client on Northflank
+---
+
+## Requirements
+
+1. [Northflank](https://app.northflank.com/signup) account
+
+## Resources Created
+
+| Resource Type      | Comments                            |
+| ------------------ | ----------------------------------- |
+| Clickhouse Service | To store traces.                    |
+| Postgres Addon     | For login and dataset related info. |
+| Langtrace Client   | Langtrace app with frontend.        |
+
+## Setup
+
+Setting up Langtrace on Northflank is now effortless. Just follow these simple steps:
+
+### Step 1: Open the Northflank Template
+
+[![Deploy on Northflank](/images/northflank/deploy-northflank-button.svg)](https://northflank.com/stacks/deploy-langtrace)
+
+Clicking the button above will direct you to the Langtrace Northflank template deployment page.
+
+![Northflank template](/images/northflank/langtrace-template-home.png)
+
+### Step 2: Configure Authentication
+
+When deploying the template, you’ll need to set up authentication for your Langtrace instance:
+
+- Under the **Configuration** section, add the following environment variables:
+  - `ADMIN_EMAIL`: Your desired admin email
+  - `ADMIN_PASSWORD`: Your desired admin password
+- For additional authentication methods (e.g. Google OAuth, Azure AD), refer to our [Authentication](/hosting/auth) guide to configure the necessary environment variables.
+
+![Northflank inputs](/images/northflank/langtrace-template-config.png)
+
+### Step 3: Deploy the Template
+
+- Click **Deploy Stack** to start the deployment.
+- Northflank will automatically create and configure the required services — Clickhouse, PostgreSQL, and Langtrace Client.
+- Deployment typically takes about 2 minutes.
+
+![Northflank Success](/images/northflank/langtrace-template-run.png)
+
+### Step 4: Access Langtrace
+
+- Once all services are running, open the **langtrace-client** service.
+- Click the **Public URL** to access your Langtrace dashboard.
+
+![Northflank URL](/images/northflank/langtrace-template-url.png)
+
+Login using your previously configured admin credentials.  
+Then follow the [Quickstart Guide](/quickstart) to begin monitoring your LLM applications.
+
+## Cleanup
+
+To remove all resources:
+
+1. Go to your **Northflank project dashboard**.  
+2. Click on **Project Settings → Danger Zone → Delete Project**.  
+3. Confirm deletion to remove all services, addons, and configurations.
+
+## Troubleshooting
+
+<AccordionGroup>
+	<Accordion title="Clickhouse service keeps restarting or crashing">
+		This usually occurs when the Clickhouse service runs out of memory.
+		You can increase the memory limit of the Clickhouse service from the **Resources** tab under its configuration.
+	</Accordion>
+
+  <Accordion title="Cannot access public URL">
+		If the public URL doesn’t open, ensure the **langtrace-client** service has an **HTTP port (3000)** exposed and marked as **Public** under **Networking settings**.
+	</Accordion>
+</AccordionGroup>

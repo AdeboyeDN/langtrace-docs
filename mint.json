@@ -227,7 +227,8 @@
             "hosting/hosting_options/docker-compose",
             "hosting/hosting_options/kubernetes",
             "hosting/hosting_options/azure",
-            "hosting/hosting_options/railway"
+            "hosting/hosting_options/railway",
+            "hosting/hosting_options/northflank"
           ]
         }
       ]
